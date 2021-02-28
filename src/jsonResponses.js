@@ -1,4 +1,3 @@
-const _ = require('underscore');
 // 6 - this will return a random number no bigger than `max`, as a string
 // we will also doing our query parameter validation here
 const songs = [
