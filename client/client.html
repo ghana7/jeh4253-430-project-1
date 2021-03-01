@@ -1,43 +1,37 @@
 <html>
 
 <head>
-    <title>Joke Client</title>
+    <title>Personal Soundtrack</title>
     <link href="default-styles.css" type="text/css" rel="stylesheet" />
-    <style>
-        header {
-            background-color: pink;
-            color: yellow;
-            font-size: 2em;
-            padding: 1em;
-        }
-
-        h1 {
-            font-family: fantasy;
-            filter: drop-shadow(5px 5px 2px #4444dd);
-        }
-
-        section {
-            border-bottom: 1px dashed gray;
-        }
-    </style>
 </head>
 
 <body>
     <header>
-        <h1>Are you ready to LISTEN?</h1>
+        <nav>
+            <a href="/home.html">Home</a>
+            <a href="/client.html">App</a>
+            <a href="/suggest.html">Suggest</a>
+            <a href="/admin.html">Admin</a>
+        </nav>
+        <h1>Personal Soundtrack</h1>
     </header>
 
-    <h2>Time: <span id="time-span"></span></h2>
+    <main>
+        <h2>Time: <span id="time-span"></span></h2>
 
-    <audio id="musicPlayer" controls autoplay>
-        <source src="/music/paper-tigers.mp3" type="audio/mpeg">
-        Your browser does not support the audio tag.
-    </audio>
+        <audio id="musicPlayer" controls autoplay>
+            <source src="/music/test.mp3" type="audio/mpeg">
+            Your browser does not support the audio tag.
+        </audio>
+    </main>
+    <footer>
+        <p>by Jimmie Harkins</p>
+    </footer>
     <script>
         const timeSpan = document.querySelector("#time-span");
         const musicPlayer = document.querySelector("#musicPlayer");
         const musicSource = document.querySelector("#musicPlayer source");
-        const songs = ["paper-tigers", "west-coast-friendship"];
+        const songs = ["test", "paper-tigers", "west-coast-friendship"];
         let songIndex = 0;
         const updateTime = () => {
             const currentTime = new Date();

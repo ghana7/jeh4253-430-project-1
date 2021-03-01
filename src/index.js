@@ -1,8 +1,7 @@
-// 1 - pull in the HTTP server module
 const http = require('http');
 const query = require('querystring');
-// 2 - pull in URL and query modules (for URL parsing)
 const url = require('url');
+const fs = require('fs');
 const htmlResponses = require('./htmlResponses');
 const jsonResponses = require('./jsonResponses');
 const mediaResponses = require('./mediaResponses');
@@ -12,28 +11,66 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 const urlStruct = {
   '/song': jsonResponses.getSongResponse,
   '/default-styles.css': htmlResponses.getDefaultStyles,
+  '/': htmlResponses.getHome,
+  '/home.html': htmlResponses.getHome,
   '/client.html': htmlResponses.getClient,
+  '/suggest.html': htmlResponses.getSuggest,
+  '/admin.html': htmlResponses.getAdmin,
   notFound: htmlResponses.get404Response,
 };
-// 7 - this is the function that will be called every time a client request comes in
-// this time we will look at the `pathname`, and send back the appropriate page
-// note that in this course we'll be using arrow functions 100% of the time in our server-side code
-const onRequest = (request, response) => {
-  // console.log(request.headers);
-  const parsedUrl = url.parse(request.url);
+
+const handlePost = (request, response, parsedUrl) => {
+  if (parsedUrl.pathname === '/addSong') {
+    const body = [];
+
+    // https://nodejs.org/api/http.html
+    request.on('error', (err) => {
+      console.dir(err);
+      response.statusCode = 400;
+      response.end();
+    });
+
+    request.on('data', (chunk) => {
+      body.push(chunk);
+    });
+
+    request.on('end', () => {
+      const buff = Buffer.concat(body);
+      // const bodyString = Buffer.concat(body).toString();
+      // const bodyParams = query.parse(bodyString);
+
+      // console.dir(request);
+      // console.dir(Buffer.concat(body));
+      fs.writeFileSync('./client/music/test.mp3', buff);
+      // console.dir(bodyString);
+      // console.dir(bodyParams);
+    });
+  }
+};
+
+const handleGet = (request, response, parsedUrl) => {
   const { pathname } = parsedUrl;
+  console.log('pathname=', pathname);
   const params = query.parse(parsedUrl.query);
   let acceptedTypes = request.headers.accept && request.headers.accept.split(',');
   acceptedTypes = acceptedTypes || [];
-  console.log('parsedUrl=', parsedUrl);
-  console.log('pathname=', pathname);
-
   if (pathname.startsWith('/music/')) {
     mediaResponses.getFile(request, response, pathname.substring(7));
   } else if (urlStruct[pathname]) {
     urlStruct[pathname](request, response, params, acceptedTypes, request.method);
   } else {
     urlStruct.notFound(request, response);
+  }
+};
+const onRequest = (request, response) => {
+  // console.log(request.headers);
+  const parsedUrl = url.parse(request.url);
+  console.log('parsedUrl=', parsedUrl);
+
+  if (request.method === 'POST') {
+    handlePost(request, response, parsedUrl);
+  } else {
+    handleGet(request, response, parsedUrl);
   }
 };
 

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="default-styles.css">
+    <title>Personal Soundtrack</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="/home.html">Home</a>
+            <a href="/client.html">App</a>
+            <a href="/suggest.html">Suggest</a>
+            <a href="/admin.html">Admin</a>
+        </nav>
+        <h1>Personal Soundtrack</h1>
+    </header>
+    <main>
+        <form id="songUpload" action="/addSong" method="post" enctype='multipart/form-data'>
+            <input type="file" id="songFile" name="songFile" accept="audio/mpeg">
+            <input type="submit" value="Add Song">
+        </form>
+    </main>
+    <footer>
+        <p>by Jimmie Harkins</p>
+    </footer>
+
+    <script>
+        const handleResponse = (e) => {
+            const xhr = e.target;
+
+            switch (xhr.status) {
+                case 200:
+                    console.log('<b>Success!</b>');
+                    break;
+                case 201:
+                    console.log('<b>Created!</b>');
+                    break;
+                case 204:
+                    console.log('<b>Updated (No Content)!</b>');
+                    break;
+                case 400:
+                    console.log('<b>Bad Request!</b>');
+                    break;
+                default:
+                    console.log('<b>Error code not implemented by client</b>');
+                    break;
+            }
+
+            // make sure that something is in the .response property first!
+            const obj = xhr.response && JSON.parse(xhr.response);
+            console.log(obj);
+        };
+
+        const sendPost = (e) => {
+            // "kill" the default behavior of the form (reloading the page it's on)
+            e.preventDefault();
+
+            const form = e.target;
+            // pull the `action` and `method` from the form (we could have just hard-coded these)
+            const action = form.getAttribute("action");
+            const method = form.getAttribute("method");
+
+            const songFile = form.querySelector("#songFile");
+
+            const formData = songFile.files[0];
+
+            const xhr = new XMLHttpRequest();
+            xhr.onload = handleResponse;
+            xhr.open(method, action); // NEW - in the past we've been using "GET"
+            xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+            xhr.send(formData);
+
+            return false; // prevents event bubbling
+        };
+
+        const init = () => {
+            document.querySelector('#songUpload').onsubmit = sendPost;
+        };
+
+        window.onload = init;
+    </script>
+</body>
+
+</html>
