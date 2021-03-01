@@ -5,7 +5,7 @@ const query = require('querystring');
 const url = require('url');
 const htmlResponses = require('./htmlResponses');
 const jsonResponses = require('./jsonResponses');
-
+const mediaResponses = require('./mediaResponses');
 // 3 - locally this will be 3000, on Heroku it will be assigned
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
@@ -28,7 +28,9 @@ const onRequest = (request, response) => {
   console.log('parsedUrl=', parsedUrl);
   console.log('pathname=', pathname);
 
-  if (urlStruct[pathname]) {
+  if (pathname.startsWith('/music/')) {
+    mediaResponses.getFile(request, response, pathname.substring(7));
+  } else if (urlStruct[pathname]) {
     urlStruct[pathname](request, response, params, acceptedTypes, request.method);
   } else {
     urlStruct.notFound(request, response);
