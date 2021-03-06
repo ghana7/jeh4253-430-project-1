@@ -3,7 +3,7 @@ const fs = require('fs');
 const errorPage = fs.readFileSync(`${__dirname}/../client/error.html`);
 const home = fs.readFileSync(`${__dirname}/../client/home.html`);
 const client = fs.readFileSync(`${__dirname}/../client/client.html`);
-const suggest = fs.readFileSync(`${__dirname}/../client/suggest.html`);
+const suggest = fs.readFileSync(`${__dirname}/../client/suggest2.html`);
 const admin = fs.readFileSync(`${__dirname}/../client/admin.html`);
 const defaultStyles = fs.readFileSync(`${__dirname}/../client/default-styles.css`);
 

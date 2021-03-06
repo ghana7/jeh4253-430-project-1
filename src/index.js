@@ -1,10 +1,11 @@
 const http = require('http');
 const query = require('querystring');
 const url = require('url');
-const fs = require('fs');
+// const fs = require('fs');
 const htmlResponses = require('./htmlResponses');
 const jsonResponses = require('./jsonResponses');
 const mediaResponses = require('./mediaResponses');
+const youtubeHandler = require('./youtubeHandler.js');
 // 3 - locally this will be 3000, on Heroku it will be assigned
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
@@ -35,13 +36,17 @@ const handlePost = (request, response, parsedUrl) => {
     });
 
     request.on('end', () => {
-      const buff = Buffer.concat(body);
+      const bodyString = Buffer.concat(body).toString();
+      const bodyParams = query.parse(bodyString);
+      // const buff = Buffer.concat(body);
+      youtubeHandler.downloadVideo(bodyParams.songUrl, bodyParams.songName);
+      console.log(bodyParams);
       // const bodyString = Buffer.concat(body).toString();
       // const bodyParams = query.parse(bodyString);
 
       // console.dir(request);
       // console.dir(Buffer.concat(body));
-      fs.writeFileSync('./client/music/test.mp3', buff);
+      // fs.writeFileSync('./client/music/test.mp3', buff);
       // console.dir(bodyString);
       // console.dir(bodyParams);
     });
