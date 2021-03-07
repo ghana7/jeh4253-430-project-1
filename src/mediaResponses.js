@@ -1,6 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 
+const images = ['sun', 'moon'];
+const imageDict = {};
+images.forEach((i) => {
+  imageDict[i] = fs.readFileSync(`${__dirname}/../client/images/${i}.png`);
+});
+console.log('finished loading images');
 const loadFile = (request, response, fileName, fileType) => {
   const file = path.resolve(__dirname, fileName);
 
@@ -53,7 +59,14 @@ const loadFile = (request, response, fileName, fileType) => {
 };
 
 const getFile = (request, response, fileName) => {
-  loadFile(request, response, `../client/music/${fileName}`, 'audio/mpeg');
+  loadFile(request, response, `../src/music/${fileName}`, 'audio/mpeg');
 };
 
+const getImageFile = (request, response, fileName) => {
+  response.writeHead(200, { 'Content-Type': 'image/png' });
+  response.write(imageDict[fileName]);
+  response.end();
+};
+
+module.exports.getImageFile = getImageFile;
 module.exports.getFile = getFile;

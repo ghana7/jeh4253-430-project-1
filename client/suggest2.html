@@ -21,8 +21,12 @@
     </header>
     <main>
         <form id="songAdd" action="/addSong" method="post" enctype='application/x-www-form-urlencoded'>
+            <label for="songName">Song Name:</label>
             <input type="text" id="songName" name="songName">
+            <label for="songUrl">YouTube URL of the song:</label>
             <input type="text" id="songUrl" name="songUrl">
+            <label for="songHour">Hour to play song:</label>
+            <input type="text" id="songHour" name="songHour">
             <input type="submit" value="Add Song">
         </form>
     </main>
@@ -68,8 +72,9 @@
 
             const songName = form.querySelector("#songName");
             const songUrl = form.querySelector("#songUrl");
+            const songHour = form.querySelector("#songHour");
 
-            const formData = `songName=${songName.value}&songUrl=${songUrl.value}`;
+            const formData = `songName=${songName.value}&songUrl=${songUrl.value}&songHour=${songHour.value}`;
 
             const xhr = new XMLHttpRequest();
             xhr.onload = handleResponse;

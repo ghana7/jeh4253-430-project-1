@@ -6,6 +6,7 @@ const client = fs.readFileSync(`${__dirname}/../client/client.html`);
 const suggest = fs.readFileSync(`${__dirname}/../client/suggest2.html`);
 const admin = fs.readFileSync(`${__dirname}/../client/admin.html`);
 const defaultStyles = fs.readFileSync(`${__dirname}/../client/default-styles.css`);
+const visualEffectsJs = fs.readFileSync(`${__dirname}/../client/visual-effects.js`);
 
 const get404Response = (request, response) => {
   response.writeHead(404, { 'Content-Type': 'text/html' });
@@ -40,9 +41,16 @@ const getDefaultStyles = (request, response) => {
   response.end();
 };
 
+const getVisualEffectsJs = (request, response) => {
+  response.writeHead(200, { 'Content-Type': 'text/javascript' });
+  response.write(visualEffectsJs);
+  response.end();
+};
+
 module.exports.get404Response = get404Response;
 module.exports.getHome = getHome;
 module.exports.getClient = getClient;
 module.exports.getSuggest = getSuggest;
 module.exports.getAdmin = getAdmin;
 module.exports.getDefaultStyles = getDefaultStyles;
+module.exports.getVisualEffectsJs = getVisualEffectsJs;

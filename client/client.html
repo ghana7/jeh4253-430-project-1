@@ -2,23 +2,26 @@
 
 <head>
     <title>Personal Soundtrack</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@700&family=Raleway:wght@200&display=swap" rel="stylesheet"> 
     <link href="default-styles.css" type="text/css" rel="stylesheet" />
 </head>
 
 <body>
     <header>
+        <h1>Personal Soundtrack</h1>
         <nav>
             <a href="/home.html">Home</a>
             <a href="/client.html">App</a>
             <a href="/suggest.html">Suggest</a>
             <a href="/admin.html">Admin</a>
         </nav>
-        <h1>Personal Soundtrack</h1>
     </header>
 
     <main>
-        <h2>Time: <span id="time-span"></span></h2>
-
+        <span id="time-span"></span>
+        <img class="backgroundElement" id="sun" src="/images/sun">
+        <img class="backgroundElement" id="moon" src="/images/moon">
         <audio id="musicPlayer" controls autoplay>
             <source src="/music/test.mp3" type="audio/mpeg">
             Your browser does not support the audio tag.
@@ -27,6 +30,7 @@
     <footer>
         <p>by Jimmie Harkins</p>
     </footer>
+    <script src='visual-effects.js'></script>
     <script>
         const timeSpan = document.querySelector("#time-span");
         const musicPlayer = document.querySelector("#musicPlayer");
@@ -36,7 +40,8 @@
         const updateTime = () => {
             const currentTime = new Date();
             const hours = currentTime.getHours();
-            const minutes = currentTime.getMinutes();
+            let minutes = currentTime.getMinutes();
+            setVisualTime(hours + minutes / 60);
             if(minutes < 10) {
                 minutes = "0" + minutes;
             }
@@ -56,6 +61,7 @@
             musicPlayer.currentTime = 0;
         }
         musicPlayer.addEventListener('ended', switchAudio);
+        updateTime();
         setInterval(updateTime, 1000);
     </script>
 </body>
