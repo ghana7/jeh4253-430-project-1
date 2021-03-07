@@ -62,7 +62,7 @@ const handleGet = (request, response, parsedUrl) => {
   acceptedTypes = acceptedTypes || [];
   if (pathname.startsWith('/music/')) {
     mediaResponses.getFile(request, response, pathname.substring(7));
-  } else if(pathname.startsWith('/images/')) {
+  } else if (pathname.startsWith('/images/')) {
     mediaResponses.getImageFile(request, response, pathname.substring(8));
   } else if (urlStruct[pathname]) {
     urlStruct[pathname](request, response, params, acceptedTypes, request.method);
