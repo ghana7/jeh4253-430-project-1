@@ -11,6 +11,7 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const urlStruct = {
   '/song': jsonResponses.getSongResponse,
+  '/songs': jsonResponses.getSongsResponse,
   '/default-styles.css': htmlResponses.getDefaultStyles,
   '/': htmlResponses.getHome,
   '/home.html': htmlResponses.getHome,

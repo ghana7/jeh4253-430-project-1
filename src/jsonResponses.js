@@ -2,7 +2,7 @@
 // we will also doing our query parameter validation here
 const songs = [
   { name: '12am-song', hour: 0 },
-  { name: '1am-song', hour: 1 },
+  { name: 'paper-tigers', hour: 1 },
   { name: '2am-song', hour: 2 },
   { name: '3am-song', hour: 3 },
   { name: '4am-song', hour: 4 },
@@ -41,8 +41,8 @@ const getSong = (params) => {
   return songs[Math.floor(Math.random() * songs.length)];
 };
 
-const getSongsByHour = (hour) => {
-  const validSongs = songs.filter((song) => song.hour === hour);
+const getSongsByHour = (params) => {
+  const validSongs = songs.filter((song) => song.hour === Number(params.hour));
   return validSongs;
 };
 
@@ -118,7 +118,6 @@ const getSongsResponse = (request, response, params, acceptedTypes, httpMethod) 
     respond(response, type, content);
   }
 };
-
 
 module.exports.getSongResponse = getSongResponse;
 module.exports.getSongsResponse = getSongsResponse;

@@ -58,9 +58,14 @@
         const volumeKnob = document.querySelector("#volumeBar img");
         const songs = ["test", "paper-tigers", "west-coast-friendship"];
         let songIndex = 0;
+        let currentHour = -1;
         const updateTime = () => {
             const currentTime = new Date();
             const hours = currentTime.getHours();
+            if(hours !== currentHour) {
+                currentHour = hours;
+                switchHourSongs(currentHour);
+            }
             let minutes = currentTime.getMinutes();
             setVisualTime(hours + minutes / 60);
             if(minutes < 10) {
@@ -76,14 +81,33 @@
             timeSpan.innerHTML = timeString;
         }
 
-        const switchHours = (hour) => {
+        const switchHourSongs = (hour) => {
+            songs.length = 0; //clear array
+            const URL = `/songs?hour=${hour}`;
+            const xhr = new XMLHttpRequest();
+            xhr.onload = handleSongsResponse;
+            xhr.open("GET", URL);
+            xhr.send();
+        }
 
+        const handleSongsResponse = (e) => {
+            const obj = JSON.parse(e.target.response);
+            console.log(obj);
+            obj.forEach((o) => {
+                songs.push(o.name);
+            });
+            console.log(songs);
+
+            
+            songIndex = -1;
+            switchAudio();
         }
         const switchAudio = (e) => {
             songIndex++;
             musicSource.src = "/music/" + songs[songIndex % songs.length] + ".mp3";
             musicPlayer.load();
             musicPlayer.currentTime = 0;
+            musicPlayer.play();
         }
         musicPlayer.addEventListener('ended', switchAudio);
         musicPlayer.addEventListener('timeupdate', (e) => {
@@ -118,7 +142,7 @@
         };
         volumeKnob.addEventListener('mousemove', updateVolume);
         volumeBar.addEventListener('mousemove', updateVolume);
-        
+
         document.addEventListener('mouseup', () => {
             volumeFollow = false;
         });
