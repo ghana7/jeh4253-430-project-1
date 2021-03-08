@@ -144,7 +144,6 @@ nav a {
     background-color: white;
     left:0;
     width: 65%;
-    transition: width 0.1s;
 }
 #volumeBar img {
     position:absolute;

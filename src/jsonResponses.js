@@ -29,7 +29,6 @@ const songs = [
   { name: '10pm-song', hour: 22 },
   { name: '11pm-song', hour: 23 },
 ];
-
 const getSongByHour = (hour) => {
   const validSongs = songs.filter((song) => song.hour === hour);
   return validSongs[Math.floor(Math.random() * validSongs.length)];
@@ -42,16 +41,35 @@ const getSong = (params) => {
   return songs[Math.floor(Math.random() * songs.length)];
 };
 
+const getSongsByHour = (hour) => {
+  const validSongs = songs.filter((song) => song.hour === hour);
+  return validSongs;
+};
+
 const getSongJSON = (params) => JSON.stringify(getSong(params));
 
 const getSongXML = (params) => {
   const song = getSong(params);
-  return `<joke>
-            <q>${song.name}</q>
-            <a>${song.hour}</a>
-          </joke>`;
+  return `<song>
+            <name>${song.name}</name>
+            <hour>${song.hour}</hour>
+          </song>`;
 };
 
+const getSongsJSON = (params) => JSON.stringify(getSongsByHour(params));
+
+const getSongsXML = (params) => {
+  const songsByHour = getSongsByHour(params);
+  let val = '<songs>';
+  songsByHour.forEach((s) => {
+    val += `<song>
+      <name>${s.name}</name>
+      <hour>${s.hour}</hour>
+    </song>`;
+  });
+  val += '</songs>';
+  return val;
+};
 const respond = (response, type, content) => {
   response.writeHead(200, { 'Content-Type': type });
   response.write(content);
@@ -82,4 +100,25 @@ const getSongResponse = (request, response, params, acceptedTypes, httpMethod) =
   }
 };
 
+const getSongsResponse = (request, response, params, acceptedTypes, httpMethod) => {
+  let content;
+  let type;
+
+  if (acceptedTypes[0] === 'text/xml') {
+    content = getSongsXML(params);
+    type = 'text/xml';
+  } else {
+    content = getSongsJSON(params);
+    type = 'application/json';
+  }
+  if (httpMethod === 'HEAD') {
+    response.writeHead(200, { 'Content-Type': type, 'Content-Length': getBinarySize(content) });
+    response.end();
+  } else {
+    respond(response, type, content);
+  }
+};
+
+
 module.exports.getSongResponse = getSongResponse;
+module.exports.getSongsResponse = getSongsResponse;

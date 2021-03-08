@@ -75,6 +75,10 @@
             }
             timeSpan.innerHTML = timeString;
         }
+
+        const switchHours = (hour) => {
+
+        }
         const switchAudio = (e) => {
             songIndex++;
             musicSource.src = "/music/" + songs[songIndex % songs.length] + ".mp3";
@@ -102,13 +106,19 @@
             e.preventDefault();
             volumeFollow = true;
         });
-        volumeKnob.addEventListener('mousemove', (e) => {
+        const updateVolume = (e) => {
             if(volumeFollow) {
-                console.log(e.offsetX);
                 const bounds = volumeBar.getBoundingClientRect();
-                volumeKnob.style.left = e.clientX - bounds.left;
+                volumeKnob.style.left = `clamp(0%, ${e.clientX - bounds.left}px, 100%)`;
+                volumeFill.style.width =  `clamp(0%, ${e.clientX - bounds.left}px, 100%)`;
+            
+                let percentVol = Math.min(1, Math.max(0, (e.clientX - bounds.left) / bounds.width));
+                musicPlayer.volume = percentVol;
             }
-        })
+        };
+        volumeKnob.addEventListener('mousemove', updateVolume);
+        volumeBar.addEventListener('mousemove', updateVolume);
+        
         document.addEventListener('mouseup', () => {
             volumeFollow = false;
         });
