@@ -1,5 +1,4 @@
-
-
+/*general stuff*/
 *{
     font-family: sans-serif;
 }
@@ -9,17 +8,17 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
-
-.backgroundElement {
-    position: absolute;
-    width: 15vh;
-    height: 15vh;
-}
-
+/*header*/
 header {
     background-color: rgba(255,255,255,0.3);
     display: block;
     text-align: center;
+}
+h1 {
+    display: block;
+    margin: 0;
+    font-size: 3rem;
+    color: white;
 }
 nav {
     display: flex;
@@ -33,21 +32,125 @@ nav a {
     font-size: 2rem;
 }
 
-#time-span {
+/* page content */
+#timeSpan {
     font-family: 'Raleway', sans-serif;
     font-weight:lighter;
     color: white;
     text-shadow: 0px 0px 4px #ffffff;
     font-size: 5rem;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-h1 {
-    display: block;
-    margin: 0;
-    font-size: 3rem;
+#nowPlaying {
+    
+    font-family: 'Raleway', sans-serif;
+    font-weight:lighter;
     color: white;
+    text-shadow: 0px 0px 4px #ffffff;
+    font-size: 3rem;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.backgroundElement {
+    position: absolute;
+    width: 15vh;
+    height: 15vh;
+}
+
+/* sound controls */
+#musicControls {
+    position: absolute;
+    width: 75vw;
+    height: 10vh;
+    left: 12.5vw;
+    bottom: 0;
+    border: 1px solid white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 0;
+    background-color: rgba(255,255,255,0.1);
+}
+
+#playButton, #pauseButton {
+    position: absolute;
+    left: 1.25vh;
+    top: 1.25vh;
+    width: 7.5vh;
+    height: 7.5vh;
+    cursor: pointer;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 3.75vh;
+}
+
+#pauseButton {
+    display: none;
+}
+#progressBar {
+    position: absolute;
+    left: 10vh;
+    width: 55vw;
+    height: 1vh;
+    top: 4.5vh;
+    background-color: rgba(255,255,255,0.3);
+}
+
+#progressFill {
+    position:absolute;
+    height: 1vh;
+    background-color: white;
+    left:0;
+    width: 0%;
+    transition: width 0.1s;
+}
+#progressBar img {
+    position:absolute;
+    left: 0%;
+    width: 4vh;
+    height: 4vh;
+    transform: translate(-2vh, -1.5vh);
+    transition: left 0.1s;
+}
+
+#volumeImg {
+    position: absolute;
+    left: calc(10vh + 56.25vw);
+    top: 1.25vh;
+    width: 7.5vh;
+    height: 7.5vh;
+    cursor: pointer;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 3.75vh;
+}
+
+#volumeBar {
+    position: absolute;
+    left: calc(10vh + 61.25vw);
+    width: 7.5vw;
+    height: 1vh;
+    top: 4.5vh;
+    background-color: rgba(255,255,255,0.3);
+}
+
+#volumeFill {
+    position:absolute;
+    height: 1vh;
+    background-color: white;
+    left:0;
+    width: 65%;
+    transition: width 0.1s;
+}
+#volumeBar img {
+    position:absolute;
+    left: 65%;
+    width: 4vh;
+    height: 4vh;
+    transform: translate(-2vh, -1.5vh);
+    cursor: pointer;
 }

@@ -19,22 +19,43 @@
     </header>
 
     <main>
-        <span id="time-span"></span>
+        <span id="timeSpan"></span>
+        <span id="nowPlaying">Now Playing: Test Song</span>
         <img class="backgroundElement" id="sun" src="/images/sun">
         <img class="backgroundElement" id="moon" src="/images/moon">
-        <audio id="musicPlayer" controls autoplay>
+        <audio id="musicPlayer">
             <source src="/music/test.mp3" type="audio/mpeg">
             Your browser does not support the audio tag.
         </audio>
+        <div id="musicControls">
+            <img id="playButton" src="/images/play">
+            <img id="pauseButton" src="/images/pause">
+            <div id="progressBar">
+                <div id="progressFill"></div>
+                <img src="/images/circle">
+            </div>
+            <img id="volumeImg" src="/images/audioOn">
+            <div id="volumeBar">
+                <div id="volumeFill"></div>
+                <img src="/images/circle">
+            </div>
+        </div>
     </main>
     <footer>
         <p>by Jimmie Harkins</p>
     </footer>
     <script src='visual-effects.js'></script>
     <script>
-        const timeSpan = document.querySelector("#time-span");
+        const timeSpan = document.querySelector("#timeSpan");
         const musicPlayer = document.querySelector("#musicPlayer");
         const musicSource = document.querySelector("#musicPlayer source");
+        const playButton = document.querySelector("#playButton");
+        const pauseButton = document.querySelector("#pauseButton");
+        const progressFill = document.querySelector("#progressFill");
+        const progressImage = document.querySelector("#progressBar img");
+        const volumeBar = document.querySelector("#volumeBar");
+        const volumeFill = document.querySelector("#volumeFill");
+        const volumeKnob = document.querySelector("#volumeBar img");
         const songs = ["test", "paper-tigers", "west-coast-friendship"];
         let songIndex = 0;
         const updateTime = () => {
@@ -61,6 +82,36 @@
             musicPlayer.currentTime = 0;
         }
         musicPlayer.addEventListener('ended', switchAudio);
+        musicPlayer.addEventListener('timeupdate', (e) => {
+            const progressPercent = musicPlayer.currentTime / musicPlayer.duration;
+            progressFill.style.width = `${progressPercent * 100}%`;
+            progressImage.style.left = `${progressPercent * 100}%`;
+        })
+        playButton.addEventListener('click', () => {
+            musicPlayer.play();
+            pauseButton.style.display = "block";
+            playButton.style.display = "none";
+        });
+        pauseButton.addEventListener('click', () => {
+            musicPlayer.pause();
+            pauseButton.style.display = "none";
+            playButton.style.display = "block";
+        });
+        let volumeFollow = false;
+        volumeKnob.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            volumeFollow = true;
+        });
+        volumeKnob.addEventListener('mousemove', (e) => {
+            if(volumeFollow) {
+                console.log(e.offsetX);
+                const bounds = volumeBar.getBoundingClientRect();
+                volumeKnob.style.left = e.clientX - bounds.left;
+            }
+        })
+        document.addEventListener('mouseup', () => {
+            volumeFollow = false;
+        });
         updateTime();
         setInterval(updateTime, 1000);
     </script>

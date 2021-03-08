@@ -34,12 +34,12 @@ const sun = document.querySelector('#sun');
 const moon = document.querySelector('#moon');
 
 const positionSunAndMoon = (index) => {
-  let angle = (index / 24.0) * Math.PI * 2;
+  const angle = (index / 24.0) * Math.PI * 2;
 
-  let sunX = -Math.sin(angle);
-  let sunY = -Math.cos(angle);
-  let moonX = Math.sin(angle);
-  let moonY = Math.cos(angle);
+  const sunX = -Math.sin(angle);
+  const sunY = -Math.cos(angle);
+  const moonX = Math.sin(angle);
+  const moonY = Math.cos(angle);
 
   sun.style.left = `calc(${50 + 35 * sunX}% - 7.5vh)`;
   sun.style.top = `calc(${100 - 70 * sunY}% - 7.5vh)`;

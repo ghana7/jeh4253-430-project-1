@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const images = ['sun', 'moon'];
+const images = ['sun', 'moon', 'play', 'pause', 'circle', 'audioOn', 'audioOff'];
 const imageDict = {};
 images.forEach((i) => {
   imageDict[i] = fs.readFileSync(`${__dirname}/../client/images/${i}.png`);
