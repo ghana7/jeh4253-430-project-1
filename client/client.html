@@ -23,7 +23,7 @@
         <span id="nowPlaying">Now Playing: Test Song</span>
         <img class="backgroundElement" id="sun" src="/images/sun">
         <img class="backgroundElement" id="moon" src="/images/moon">
-        <audio id="musicPlayer">
+        <audio id="musicPlayer" autoplay>
             <source src="/music/test.mp3" type="audio/mpeg">
             Your browser does not support the audio tag.
         </audio>
@@ -47,6 +47,7 @@
     <script src='visual-effects.js'></script>
     <script>
         const timeSpan = document.querySelector("#timeSpan");
+        const nowPlayingText = document.querySelector("#nowPlaying");
         const musicPlayer = document.querySelector("#musicPlayer");
         const musicSource = document.querySelector("#musicPlayer source");
         const playButton = document.querySelector("#playButton");
@@ -105,9 +106,10 @@
         const switchAudio = (e) => {
             songIndex++;
             musicSource.src = "/music/" + songs[songIndex % songs.length] + ".mp3";
+            nowPlayingText.innerHTML = "Now Playing: " + songs[songIndex % songs.length];
             musicPlayer.load();
             musicPlayer.currentTime = 0;
-            musicPlayer.play();
+            //musicPlayer.play();
         }
         musicPlayer.addEventListener('ended', switchAudio);
         musicPlayer.addEventListener('timeupdate', (e) => {

@@ -4,25 +4,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@700&family=Raleway:wght@200&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="default-styles.css">
     <title>Personal Soundtrack</title>
 </head>
 <body>
     <header>
+        <h1>Personal Soundtrack</h1>
         <nav>
             <a href="/home.html">Home</a>
             <a href="/client.html">App</a>
             <a href="/suggest.html">Suggest</a>
             <a href="/admin.html">Admin</a>
         </nav>
-        <h1>Personal Soundtrack</h1>
     </header>
     <main>
-        <p>Give your life its own personal soundtrack! Try the app <a href="/client.html">here</a> or use the API in your development! Endpoints are here: </p>
-        <ul>
-            <li><a href="/song">/song</a></li>
-            <li><a href="/song?hour=10">/song?hour=10</a></li>
-        </ul>
+        <h3>Give your life its own personal soundtrack!</h3>
+        <div id="columnView">
+            <div class="column">
+                <p>Try the app <a href="/client.html">here</a> or use the API in your development! Endpoints are here: </p>
+                <ul>
+                    <li><a href="/song">/song</a></li>
+                    <li><a href="/song?hour=10">/song?hour=10</a></li>
+                </ul>
+            </div>
+            <div class="column tempStatus">
+                <p>Current status as of 3/8</p>
+                <ul>
+                    <li>API is 95% complete, all code is done, I just need to add more starting songs</li>
+                    <li>App is 100% complete, pulls song names from API based on current hour, streams music, and updates visuals based on time of day.</li>
+                    <li>Suggest page is 75% complete, suggesting songs works and songs are downloaded to the server, but some internal work is still needed to connect their names to the API.</li>
+                    <li>Admin page is 10% complete, the front-end is finished but that's it.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <script src='visual-effects.js'></script>
+        <script>
+            setVisualTime((new Date()).getHours());
+        </script>
     </main>
     <footer>
         <p>by Jimmie Harkins</p>

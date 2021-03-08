@@ -48,5 +48,7 @@ const positionSunAndMoon = (index) => {
 }
 const setVisualTime = (index) => {
   documentBody.style.backgroundImage = getBackground(Math.floor(index) % 24);
-  positionSunAndMoon(index);
+  if (sun) {
+    positionSunAndMoon(index);
+  }
 }

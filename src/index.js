@@ -42,6 +42,8 @@ const handlePost = (request, response, parsedUrl) => {
       const bodyParams = query.parse(bodyString);
       // const buff = Buffer.concat(body);
       youtubeHandler.downloadVideo(bodyParams.songUrl, bodyParams.songName);
+      response.statusCode = 201;
+      response.end();
       console.log(bodyParams);
       // const bodyString = Buffer.concat(body).toString();
       // const bodyParams = query.parse(bodyString);

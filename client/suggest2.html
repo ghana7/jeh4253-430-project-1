@@ -5,60 +5,60 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@700&family=Raleway:wght@200&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="default-styles.css">
     <title>Personal Soundtrack</title>
 </head>
 
 <body>
     <header>
+        <h1>Personal Soundtrack</h1>
         <nav>
             <a href="/home.html">Home</a>
             <a href="/client.html">App</a>
             <a href="/suggest.html">Suggest</a>
             <a href="/admin.html">Admin</a>
         </nav>
-        <h1>Personal Soundtrack</h1>
     </header>
     <main>
         <form id="songAdd" action="/addSong" method="post" enctype='application/x-www-form-urlencoded'>
             <label for="songName">Song Name:</label>
-            <input type="text" id="songName" name="songName">
+            <input type="text" id="songName" name="songName"><br><br>
             <label for="songUrl">YouTube URL of the song:</label>
-            <input type="text" id="songUrl" name="songUrl">
+            <input type="text" id="songUrl" name="songUrl"><br><br>
             <label for="songHour">Hour to play song:</label>
-            <input type="text" id="songHour" name="songHour">
+            <input type="number" value="1" min="1" max="24" id="songHour" name="songHour"><br><br>
             <input type="submit" value="Add Song">
         </form>
+        <p id="responseArea"></p>
     </main>
     <footer>
         <p>by Jimmie Harkins</p>
     </footer>
 
+    <script src='visual-effects.js'></script>
     <script>
+        setVisualTime((new Date()).getHours());
+    </script>
+
+    <script>
+        const responseArea = document.querySelector("#responseArea");
         const handleResponse = (e) => {
             const xhr = e.target;
 
+            let responseInfo;
             switch (xhr.status) {
-                case 200:
-                    console.log('<b>Success!</b>');
-                    break;
                 case 201:
-                    console.log('<b>Created!</b>');
-                    break;
-                case 204:
-                    console.log('<b>Updated (No Content)!</b>');
+                    responseInfo = '<b>Song successfully added!</b>';
                     break;
                 case 400:
-                    console.log('<b>Bad Request!</b>');
+                    responseInfo = '<b>Bad Request!</b>';
                     break;
                 default:
-                    console.log('<b>Error code not implemented by client</b>');
+                    responseInfo = '<b>Error code not implemented by client</b>';
                     break;
             }
-
-            // make sure that something is in the .response property first!
-            const obj = xhr.response && JSON.parse(xhr.response);
-            console.log(obj);
+            responseArea.innerHTML = responseInfo;
         };
 
         const sendPost = (e) => {
