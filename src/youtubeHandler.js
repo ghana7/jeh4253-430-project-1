@@ -17,7 +17,7 @@ const getVideoId = (url) => {
     videoId = videoId.substring(0, ampersandPosition);
   }
   return videoId;
-}
+};
 const downloadVideo = (url, title) => {
   console.log(`Downloading ${getVideoId(url)} to ${__dirname}/music/${title}.mp3`);
   YD.download(getVideoId(url), `${title}.mp3`);
