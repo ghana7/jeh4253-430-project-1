@@ -1,33 +1,32 @@
-// 6 - this will return a random number no bigger than `max`, as a string
-// we will also doing our query parameter validation here
 const songs = [
-  { name: 'Fireflies', hour: 0 },
-  { name: 'Fireflies', hour: 1 },
-  { name: 'coconut-mall-theme', hour: 2 },
-  { name: 'coconut-mall-theme', hour: 3 },
-  { name: 'Fireflies', hour: 4 },
-  { name: 'Fireflies', hour: 5 },
-  { name: 'Fireflies', hour: 6 },
-  { name: 'Fireflies', hour: 7 },
-  { name: 'Fireflies', hour: 8 },
-  { name: 'Fireflies', hour: 9 },
-  { name: 'Fireflies', hour: 10 },
-  { name: 'paper-tigers', hour: 10 },
-  { name: 'west-coast-friendship', hour: 10 },
-  { name: 'Fireflies', hour: 11 },
-  { name: 'Fireflies', hour: 12 },
-  { name: 'coconut-mall-theme', hour: 13 },
-  { name: 'coconut-mall-theme', hour: 14 },
-  { name: 'coconut-mall-theme', hour: 15 },
-  { name: 'coconut-mall-theme', hour: 16 },
-  { name: 'coconut-mall-theme', hour: 17 },
-  { name: 'Fireflies', hour: 18 },
-  { name: 'Fireflies', hour: 19 },
-  { name: 'Fireflies', hour: 20 },
-  { name: 'Fireflies', hour: 21 },
-  { name: 'Fireflies', hour: 22 },
-  { name: 'Fireflies', hour: 23 },
+  { name: 'fireflies', display: 'Fireflies', hour: 0 },
+  { name: 'fireflies', display: 'Fireflies', hour: 1 },
+  { name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 2 },
+  { name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 3 },
+  { name: 'fireflies', display: 'Fireflies', hour: 4 },
+  { name: 'fireflies', display: 'Fireflies', hour: 5 },
+  { name: 'fireflies', display: 'Fireflies', hour: 6 },
+  { name: 'fireflies', display: 'Fireflies', hour: 7 },
+  { name: 'fireflies', display: 'Fireflies', hour: 8 },
+  { name: 'fireflies', display: 'Fireflies', hour: 9 },
+  { name: 'fireflies', display: 'Fireflies', hour: 10 },
+  { name: 'paper-tigers', display: 'Paper Tigers', hour: 10 },
+  { name: 'west-coast-friendship', display: 'West Coast Friendship', hour: 10 },
+  { name: 'fireflies', display: 'Fireflies', hour: 11 },
+  { name: 'fireflies', display: 'Fireflies', hour: 12 },
+  { name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 13 },
+  { name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 14 },
+  { name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 15 },
+  { name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 16 },
+  { name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 17 },
+  { name: 'fireflies', display: 'Fireflies', hour: 18 },
+  { name: 'fireflies', display: 'Fireflies', hour: 19 },
+  { name: 'fireflies', display: 'Fireflies', hour: 20 },
+  { name: 'fireflies', display: 'Fireflies', hour: 21 },
+  { name: 'fireflies', display: 'Fireflies', hour: 22 },
+  { name: 'fireflies', display: 'Fireflies', hour: 23 },
 ];
+
 const getSongByHour = (hour) => {
   const validSongs = songs.filter((song) => song.hour === hour);
   return validSongs[Math.floor(Math.random() * validSongs.length)];
@@ -43,6 +42,25 @@ const getSong = (params) => {
 const getSongsByHour = (params) => {
   const validSongs = songs.filter((song) => song.hour === Number(params.hour));
   return validSongs;
+};
+
+const addSong = (nameIn, displayIn, hourIn, videoIdIn) => {
+  if (!(getSongsByHour({ hour: hourIn }).some((s) => {
+    if (s.videoId) {
+      console.log(`${s.videoId} == ${videoIdIn}`);
+      return s.videoId === videoIdIn;
+    }
+    return false;
+  }))) {
+    songs.push({
+      name: nameIn,
+      display: displayIn,
+      hour: Number(hourIn),
+      videoId: videoIdIn,
+    });
+    return true;
+  }
+  return false;
 };
 
 const getSongJSON = (params) => JSON.stringify(getSong(params));
@@ -75,7 +93,6 @@ const respond = (response, type, content) => {
   response.end();
 };
 
-// ALWAYS GIVE CREDIT - in your code comments and documentation
 // Source: https://stackoverflow.com/questions/2219526/how-many-bytes-in-a-javascript-string/29955838
 // Refactored to an arrow function by ACJ
 const getBinarySize = (string) => Buffer.byteLength(string, 'utf8');
@@ -118,5 +135,6 @@ const getSongsResponse = (request, response, params, acceptedTypes, httpMethod) 
   }
 };
 
+module.exports.addSong = addSong;
 module.exports.getSongResponse = getSongResponse;
 module.exports.getSongsResponse = getSongsResponse;

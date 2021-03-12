@@ -21,7 +21,7 @@ const urlStruct = {
   '/visual-effects.js': htmlResponses.getVisualEffectsJs,
   notFound: htmlResponses.get404Response,
 };
-
+const cleanName = (name) => name.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-');
 const handlePost = (request, response, parsedUrl) => {
   if (parsedUrl.pathname === '/addSong') {
     const body = [];
@@ -41,10 +41,15 @@ const handlePost = (request, response, parsedUrl) => {
       const bodyString = Buffer.concat(body).toString();
       const bodyParams = query.parse(bodyString);
       // const buff = Buffer.concat(body);
-      youtubeHandler.downloadVideo(bodyParams.songUrl, bodyParams.songName);
-      response.statusCode = 201;
+      const clean = cleanName(bodyParams.songName);
+      youtubeHandler.downloadVideo(bodyParams.songUrl, clean);
+      if (jsonResponses.addSong(clean, bodyParams.songName, bodyParams.songHour,
+        youtubeHandler.getVideoId(bodyParams.songUrl))) {
+        response.statusCode = 201;
+      } else {
+        response.statusCode = 400;
+      }
       response.end();
-      console.log(bodyParams);
       // const bodyString = Buffer.concat(body).toString();
       // const bodyParams = query.parse(bodyString);
 

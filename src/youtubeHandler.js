@@ -10,18 +10,21 @@ const YD = new YoutubeMp3Downloader({
   allowWebm: false, // Enable download from WebM sources (default: false)
 });
 
-const downloadVideo = (url, title) => {
+const getVideoId = (url) => {
   let videoId = url.split('v=')[1];
   const ampersandPosition = videoId.indexOf('&');
   if (ampersandPosition !== -1) {
     videoId = videoId.substring(0, ampersandPosition);
   }
-  console.log(`Downloading ${videoId} to ${__dirname}/music/${title}.mp3`);
-  YD.download(videoId, `${title}.mp3`);
+  return videoId;
+}
+const downloadVideo = (url, title) => {
+  console.log(`Downloading ${getVideoId(url)} to ${__dirname}/music/${title}.mp3`);
+  YD.download(getVideoId(url), `${title}.mp3`);
 };
 
 YD.on('finished', (err, data) => {
-  console.log(data);
+  console.log(`Video ${data.videoId} (${data.videoTitle}) finished downloading`);
 });
 
 YD.on('error', (error) => {
@@ -29,6 +32,7 @@ YD.on('error', (error) => {
 });
 
 YD.on('progress', (progress) => {
-  console.log(JSON.stringify(progress));
+  console.log(`Video ${progress.videoId} ${Math.round(Number(progress.progress.percentage) * 100) / 100}% downloaded`);
 });
 module.exports.downloadVideo = downloadVideo;
+module.exports.getVideoId = getVideoId;
