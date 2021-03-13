@@ -74,7 +74,7 @@ main ul {
     font-size: 5rem;
     position: absolute;
     top: 40%;
-    left: 50%;
+    left: 25%;
     transform: translate(-50%, -50%);
 }
 
@@ -85,10 +85,31 @@ main ul {
     font-size: 3rem;
     position: absolute;
     top: 55%;
-    left: 50%;
+    left: 25%;
     transform: translate(-50%, -50%);
 }
 
+#playlist {
+    border: 1px solid white;
+    border-radius: 5px;
+    position: absolute;
+    top: 25%;
+    height: 50%;
+    left: 75%;
+    transform: translate(-50%, 0);
+    width: 40%;
+}
+#playlist h6 {
+    margin: 0;
+    font-size: 2rem;
+}
+#playlistSongs {
+    border: 1px solid white;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    height: calc(100% - 3rem);
+}
 .backgroundElement {
     position: absolute;
     width: 15vh;

@@ -21,6 +21,12 @@
     <main>
         <span id="timeSpan"></span>
         <span id="nowPlaying">Now Playing: Test Song</span>
+        <div id="playlist">
+            <h6>Playlist:</h6>
+            <div id="playlistSongs">
+
+            </div>
+        </div>
         <img class="backgroundElement" id="sun" src="/images/sun">
         <img class="backgroundElement" id="moon" src="/images/moon">
         <audio id="musicPlayer" autoplay>
@@ -57,6 +63,7 @@
         const volumeBar = document.querySelector("#volumeBar");
         const volumeFill = document.querySelector("#volumeFill");
         const volumeKnob = document.querySelector("#volumeBar img");
+        const playlistSongs = document.querySelector("#playlistSongs");
         const songs = ["test", "paper-tigers", "west-coast-friendship"];
         let songIndex = 0;
         let currentHour = -1;
@@ -109,7 +116,14 @@
             nowPlayingText.innerHTML = "Now Playing: " + songs[songIndex % songs.length];
             musicPlayer.load();
             musicPlayer.currentTime = 0;
+            updatePlaylist();
             //musicPlayer.play();
+        }
+        const updatePlaylist = () => {
+            playlistSongs.innerHTML = "";
+            songs.forEach((s) => {
+                playlistSongs.innerHTML += `<p>${s}</p>`;
+            })
         }
         musicPlayer.addEventListener('ended', switchAudio);
         musicPlayer.addEventListener('timeupdate', (e) => {

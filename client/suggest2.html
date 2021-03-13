@@ -23,11 +23,11 @@
     <main>
         <form id="songAdd" action="/addSong" method="post" enctype='application/x-www-form-urlencoded'>
             <label for="songName">Song Name:</label>
-            <input type="text" id="songName" name="songName"><br><br>
+            <input type="text" id="songName" name="songName" required><br><br>
             <label for="songUrl">YouTube URL of the song:</label>
-            <input type="text" id="songUrl" name="songUrl"><br><br>
+            <input type="text" id="songUrl" name="songUrl" required><br><br>
             <label for="songHour">Hour to play song:</label>
-            <input type="number" value="1" min="1" max="24" id="songHour" name="songHour"><br><br>
+            <input type="number" value="1" min="1" max="24" id="songHour" name="songHour" required><br><br>
             <input type="submit" value="Add Song">
         </form>
         <p id="responseArea"></p>
@@ -46,14 +46,21 @@
         const handleResponse = (e) => {
             const xhr = e.target;
 
+            console.log(xhr.responseText);
             let responseInfo;
             switch (xhr.status) {
                 case 201:
                     responseInfo = '<b>Song successfully added!</b>';
                     break;
-                case 400:
-                    responseInfo = '<b>Error in submission - Song might already exist for this hour!</b>';
+                case 200:
+                    if(xhr.responseText === 'Duplicate upload') {
+                        responseInfo = '<b>Song already exists for this hour!</b>';
+                    } else {
+                        responseInfo = '<b>Error code not implemented by client</b>';
+                    }
                     break;
+                case 400: 
+                    responseInfo = '<b>Error in input! Did you forget something?</b>';
                 default:
                     responseInfo = '<b>Error code not implemented by client</b>';
                     break;

@@ -47,7 +47,8 @@ const handlePost = (request, response, parsedUrl) => {
         youtubeHandler.getVideoId(bodyParams.songUrl))) {
         response.statusCode = 201;
       } else {
-        response.statusCode = 400;
+        response.statusCode = 200;
+        response.write('Duplicate upload');
       }
       response.end();
       // const bodyString = Buffer.concat(body).toString();
