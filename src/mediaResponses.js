@@ -15,7 +15,7 @@ const loadFile = (request, response, fileName, fileType) => {
       if (err.code === 'ENOENT') {
         response.writeHead(404);
       }
-      return response.end(err);
+      // return response.end(err);
     }
 
     let { range } = request.headers;
