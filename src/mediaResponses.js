@@ -10,12 +10,14 @@ console.log('finished loading images');
 const loadFile = (request, response, fileName, fileType) => {
   const file = path.resolve(__dirname, fileName);
 
+  console.log('FILE IS ------------------');
+  console.log(file);
   fs.stat(file, (err, stats) => {
     if (err) {
       if (err.code === 'ENOENT') {
         response.writeHead(404);
       }
-      // return response.end(err);
+      return response.end(err);
     }
 
     let { range } = request.headers;
