@@ -40,12 +40,18 @@ const handlePost = (request, response, parsedUrl) => {
     request.on('end', () => {
       const bodyString = Buffer.concat(body).toString();
       const bodyParams = query.parse(bodyString);
-      // const buff = Buffer.concat(body);
+
       const clean = cleanName(bodyParams.songName);
-      youtubeHandler.downloadVideo(bodyParams.songUrl, clean);
-      if (jsonResponses.addSong(clean, bodyParams.songName, bodyParams.songHour,
+      if (!bodyParams.songName || !bodyParams.songUrl || !bodyParams.songHour) {
+        response.statusCode = 400;
+        response.write('Missing a parameter');
+      } else if (!youtubeHandler.isValidUrl(bodyParams.songUrl)) {
+        response.statusCode = 400;
+        response.write('Invalid URL');
+      } else if (jsonResponses.addSong(clean, bodyParams.songName, bodyParams.songHour,
         youtubeHandler.getVideoId(bodyParams.songUrl))) {
         response.statusCode = 201;
+        youtubeHandler.downloadVideo(bodyParams.songUrl, clean);
       } else {
         response.statusCode = 200;
         response.write('Duplicate upload');

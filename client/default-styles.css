@@ -109,6 +109,13 @@ main ul {
     margin-left: 5px;
     margin-right: 5px;
     height: calc(100% - 3rem);
+    overflow: scroll;
+}
+
+#playlistSongs p {
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    width: 80%;
+    margin-left: 10%;
 }
 .backgroundElement {
     position: absolute;
@@ -212,6 +219,11 @@ h3 {
 }
 
 /* form controls */
+form {
+    text-align: left;
+    width: 70%;
+    margin-left: 15%;
+}
 label, input {
     font-size: 2rem;
 }

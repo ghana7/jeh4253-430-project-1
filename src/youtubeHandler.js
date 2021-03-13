@@ -10,6 +10,11 @@ const YD = new YoutubeMp3Downloader({
   allowWebm: false, // Enable download from WebM sources (default: false)
 });
 
+const isValidUrl = (url) => {
+  const substrings = url.split('v=');
+  return substrings.length > 1;
+};
+
 const getVideoId = (url) => {
   let videoId = url.split('v=')[1];
   const ampersandPosition = videoId.indexOf('&');
@@ -36,3 +41,4 @@ YD.on('progress', (progress) => {
 });
 module.exports.downloadVideo = downloadVideo;
 module.exports.getVideoId = getVideoId;
+module.exports.isValidUrl = isValidUrl;

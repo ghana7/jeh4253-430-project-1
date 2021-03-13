@@ -22,12 +22,13 @@
     </header>
     <main>
         <form id="songAdd" action="/addSong" method="post" enctype='application/x-www-form-urlencoded'>
-            <label for="songName">Song Name:</label>
+            <label for="songName">Song Name: </label>
             <input type="text" id="songName" name="songName" required><br><br>
-            <label for="songUrl">YouTube URL of the song:</label>
+            <label for="songUrl">YouTube URL of the song: </label>
             <input type="text" id="songUrl" name="songUrl" required><br><br>
-            <label for="songHour">Hour to play song:</label>
-            <input type="number" value="1" min="1" max="24" id="songHour" name="songHour" required><br><br>
+            <label for="songHour">Hour to play song: </label>
+            <input type="number" value="1" min="1" max="24" id="songHour" name="songHour" required>
+            <label id="displayHour"></label><br><br>
             <input type="submit" value="Add Song">
         </form>
         <p id="responseArea"></p>
@@ -42,6 +43,27 @@
     </script>
 
     <script>
+        const songHour = document.querySelector("#songHour");
+        const displayHour = document.querySelector("#displayHour");
+
+        const updateDisplayHour = () => {
+            const hours = Number(songHour.value);
+            let timeString = (hours % 12 ? hours % 12 : 12) + ":00 ";
+            if(hours > 11 && hours < 24) {
+                timeString += "PM";
+            } else {
+                timeString += "AM";
+            }
+            
+            let timeString2 = ((hours + 1) % 12 ? (hours + 1) % 12 : 12) + ":00 ";
+            if(hours + 1 > 11 && hours + 1 < 24) {
+                timeString2 += "PM";
+            } else {
+                timeString2 += "AM";
+            }
+            displayHour.innerHTML = "(" + timeString + " - " + timeString2 + ")";
+        };
+        songHour.addEventListener("input", updateDisplayHour);
         const responseArea = document.querySelector("#responseArea");
         const handleResponse = (e) => {
             const xhr = e.target;
@@ -60,7 +82,12 @@
                     }
                     break;
                 case 400: 
-                    responseInfo = '<b>Error in input! Did you forget something?</b>';
+                    if(xhr.responseText === 'Invalid URL') {
+                        responseInfo = '<b>Invalid URL - must be from YouTube</b>';
+                    } else {
+                        responseInfo = '<b>Error in input! Did you forget something?</b>';
+                    }
+                    break;
                 default:
                     responseInfo = '<b>Error code not implemented by client</b>';
                     break;
@@ -94,6 +121,7 @@
 
         const init = () => {
             document.querySelector('#songAdd').onsubmit = sendPost;
+            updateDisplayHour();
         };
 
         window.onload = init;
