@@ -64,7 +64,7 @@
         const volumeFill = document.querySelector("#volumeFill");
         const volumeKnob = document.querySelector("#volumeBar img");
         const playlistSongs = document.querySelector("#playlistSongs");
-        const songs = ["test", "paper-tigers", "west-coast-friendship"];
+        const songs = [];
         let songIndex = 0;
         let currentHour = -1;
         const updateTime = () => {
@@ -102,18 +102,16 @@
             const obj = JSON.parse(e.target.response);
             console.log(obj);
             obj.forEach((o) => {
-                songs.push(o.name);
+                songs.push(o);
             });
-            console.log(songs);
-
             
             songIndex = -1;
             switchAudio();
         }
         const switchAudio = (e) => {
             songIndex++;
-            musicSource.src = "/music/" + songs[songIndex % songs.length] + ".mp3";
-            nowPlayingText.innerHTML = "Now Playing: " + songs[songIndex % songs.length];
+            musicSource.src = "/music/" + songs[songIndex % songs.length].name + ".mp3";
+            nowPlayingText.innerHTML = "Now Playing: " + songs[songIndex % songs.length].display;
             musicPlayer.load();
             musicPlayer.currentTime = 0;
             updatePlaylist();
@@ -122,7 +120,7 @@
         const updatePlaylist = () => {
             playlistSongs.innerHTML = "";
             songs.forEach((s) => {
-                playlistSongs.innerHTML += `<p>${s}</p>`;
+                playlistSongs.innerHTML += `<p>${s.display}</p>`;
             })
         }
         musicPlayer.addEventListener('ended', switchAudio);
