@@ -8,7 +8,7 @@ images.forEach((i) => {
 });
 console.log('finished loading images');
 const loadFile = (request, response, fileName, fileType) => {
-  const file = path.resolve(__dirname, fileName);
+  const file = path.join(process.cwd(), fileName);
 
   console.log('FILE IS ------------------');
   console.log(file);
