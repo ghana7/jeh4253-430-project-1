@@ -243,3 +243,30 @@ footer p {
     font-weight:lighter;
     font-size: 1.2rem;
 }
+
+/* admin */
+
+#updateSongView {
+    font-size: 2rem;
+    color: black;
+}
+
+#songView, #songViewHeader {
+    width: 100%;
+    text-align: left;
+}
+
+#songView div, #songViewHeader {
+    display: flex;
+}
+
+#songView div span, #songViewHeader span, #songView div button {
+    position: relative;
+    border: 1px solid white;
+    margin: 1px;
+    width: 15%;
+}
+
+#songView div button {
+    color: black;
+}

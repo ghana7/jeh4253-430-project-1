@@ -18,11 +18,111 @@
     </header>
 
     <main>
-        <p>admin page tbd</p>
-        
+        <form id="hourQuery">
+            <label for="inputHour">Hour to edit playlist of: </label>
+            <input type="number" value="1" min="1" max="24" id="inputHour" name="inputHour" required>
+            <label id="displayHour"></label><br><br>
+        </form>
+        <button id="updateSongView">Edit Playlist</button>
+        <div id="songViewHeader">
+            <span>Name</span>
+            <span>Display Name</span>
+            <span>Hour</span>
+            <span>Url</span>
+        </div>
+        <div id="songView">
+
+        </div>
         <script src='visual-effects.js'></script>
         <script>
             setVisualTime((new Date()).getHours());
+        </script>
+        <script>
+            const inputHour = document.querySelector("#inputHour");
+            const displayHour = document.querySelector("#displayHour");
+            const songView = document.querySelector("#songView");
+            const updateButton = document.querySelector("#updateSongView");
+
+            const updateDisplayHour = () => {
+                const hours = Number(inputHour.value);
+                let timeString = (hours % 12 ? hours % 12 : 12) + ":00 ";
+                if(hours > 11 && hours < 24) {
+                    timeString += "PM";
+                } else {
+                    timeString += "AM";
+                }
+                
+                let timeString2 = ((hours + 1) % 12 ? (hours + 1) % 12 : 12) + ":00 ";
+                if(hours + 1 > 11 && hours + 1 < 24) {
+                    timeString2 += "PM";
+                } else {
+                    timeString2 += "AM";
+                }
+                displayHour.innerHTML = "(" + timeString + " - " + timeString2 + ")";
+            };
+            inputHour.addEventListener("input", updateDisplayHour);
+            const init = () => {
+                updateDisplayHour();
+            };
+
+            const updateSongView = () => {
+                const hour = Number(inputHour.value);
+                const URL = `/songs?hour=${hour}`;
+                const xhr = new XMLHttpRequest();
+                xhr.onload = handleSongsResponse;
+                xhr.open("GET", URL);
+                xhr.send();
+            };
+            updateButton.addEventListener("click", updateSongView);
+
+            const sendDelete = (name, hour) => {
+                console.log("delete " + name + " " + hour);
+                const xhr = new XMLHttpRequest();
+                
+                xhr.onload = updateSongView;
+                xhr.open("POST", '/removeSong');
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send(`songHour=${hour}&songName=${name}`);
+            };
+
+            const handleSongsResponse = (e) => {
+                songView.innerHTML = "";
+                const obj = JSON.parse(e.target.response);
+                obj.forEach((o) => {
+                    let rowDiv = document.createElement("div");
+                    let name = document.createElement("span");
+                    let nameText = document.createTextNode(o.name);
+                    name.appendChild(nameText);
+                    rowDiv.appendChild(name);
+
+                    let display = document.createElement("span");
+                    let displayText = document.createTextNode(o.display);
+                    display.appendChild(displayText);
+                    rowDiv.appendChild(display);
+
+                    let hour = document.createElement("span");
+                    let hourText = document.createTextNode("" + o.hour);
+                    hour.appendChild(hourText);
+                    rowDiv.appendChild(hour);
+
+                    let url = document.createElement("span");
+                    let urlText = document.createTextNode("" + o.url);
+                    url.appendChild(urlText);
+                    rowDiv.appendChild(url);
+
+                    let button = document.createElement("button");
+                    let buttonText = document.createTextNode("Delete");
+                    button.appendChild(buttonText);
+                    rowDiv.appendChild(button);
+                    button.addEventListener("click", () => {
+                        sendDelete(o.name, o.hour);
+                    });
+                    
+                    songView.appendChild(rowDiv);
+                });
+            };
+
+            window.onload = init;
         </script>
     </main>
     <footer>

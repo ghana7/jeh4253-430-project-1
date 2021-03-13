@@ -1,30 +1,82 @@
 const songs = [
-  { name: 'fireflies', display: 'Fireflies', hour: 0 },
-  { name: 'fireflies', display: 'Fireflies', hour: 1 },
-  { name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 2 },
-  { name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 3 },
-  { name: 'fireflies', display: 'Fireflies', hour: 4 },
-  { name: 'fireflies', display: 'Fireflies', hour: 5 },
-  { name: 'fireflies', display: 'Fireflies', hour: 6 },
-  { name: 'fireflies', display: 'Fireflies', hour: 7 },
-  { name: 'fireflies', display: 'Fireflies', hour: 8 },
-  { name: 'fireflies', display: 'Fireflies', hour: 9 },
-  { name: 'fireflies', display: 'Fireflies', hour: 10 },
-  { name: 'paper-tigers', display: 'Paper Tigers', hour: 10 },
-  { name: 'west-coast-friendship', display: 'West Coast Friendship', hour: 10 },
-  { name: 'fireflies', display: 'Fireflies', hour: 11 },
-  { name: 'fireflies', display: 'Fireflies', hour: 12 },
-  { name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 13 },
-  { name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 14 },
-  { name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 15 },
-  { name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 16 },
-  { name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 17 },
-  { name: 'fireflies', display: 'Fireflies', hour: 18 },
-  { name: 'fireflies', display: 'Fireflies', hour: 19 },
-  { name: 'fireflies', display: 'Fireflies', hour: 20 },
-  { name: 'fireflies', display: 'Fireflies', hour: 21 },
-  { name: 'fireflies', display: 'Fireflies', hour: 22 },
-  { name: 'fireflies', display: 'Fireflies', hour: 23 },
+  {
+    name: 'fireflies', display: 'Fireflies', hour: 0, url: 'https://www.youtube.com/watch?v=QBgl4rVz3Ks',
+  },
+  {
+    name: 'fireflies', display: 'Fireflies', hour: 1, url: 'https://www.youtube.com/watch?v=QBgl4rVz3Ks',
+  },
+  {
+    name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 2, url: 'https://www.youtube.com/watch?v=QY7SxnKqMmE',
+  },
+  {
+    name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 3, url: 'https://www.youtube.com/watch?v=QY7SxnKqMmE',
+  },
+  {
+    name: 'fireflies', display: 'Fireflies', hour: 4, url: 'https://www.youtube.com/watch?v=QBgl4rVz3Ks',
+  },
+  {
+    name: 'fireflies', display: 'Fireflies', hour: 5, url: 'https://www.youtube.com/watch?v=QBgl4rVz3Ks',
+  },
+  {
+    name: 'fireflies', display: 'Fireflies', hour: 6, url: 'https://www.youtube.com/watch?v=QBgl4rVz3Ks',
+  },
+  {
+    name: 'fireflies', display: 'Fireflies', hour: 7, url: 'https://www.youtube.com/watch?v=QBgl4rVz3Ks',
+  },
+  {
+    name: 'fireflies', display: 'Fireflies', hour: 8, url: 'https://www.youtube.com/watch?v=QBgl4rVz3Ks',
+  },
+  {
+    name: 'fireflies', display: 'Fireflies', hour: 9, url: 'https://www.youtube.com/watch?v=QBgl4rVz3Ks',
+  },
+  {
+    name: 'fireflies', display: 'Fireflies', hour: 10, url: 'https://www.youtube.com/watch?v=QBgl4rVz3Ks',
+  },
+  {
+    name: 'paper-tigers', display: 'Paper Tigers', hour: 10, url: 'https://www.youtube.com/watch?v=YtwWXVKUZBY',
+  },
+  {
+    name: 'west-coast-friendship', display: 'West Coast Friendship', hour: 10, url: 'https://www.youtube.com/watch?v=UTi7fuaQyxI',
+  },
+  {
+    name: 'fireflies', display: 'Fireflies', hour: 11, url: 'https://www.youtube.com/watch?v=QBgl4rVz3Ks',
+  },
+  {
+    name: 'fireflies', display: 'Fireflies', hour: 12, url: 'https://www.youtube.com/watch?v=QBgl4rVz3Ks',
+  },
+  {
+    name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 13, url: 'https://www.youtube.com/watch?v=QY7SxnKqMmE',
+  },
+  {
+    name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 14, url: 'https://www.youtube.com/watch?v=QY7SxnKqMmE',
+  },
+  {
+    name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 15, url: 'https://www.youtube.com/watch?v=QY7SxnKqMmE',
+  },
+  {
+    name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 16, url: 'https://www.youtube.com/watch?v=QY7SxnKqMmE',
+  },
+  {
+    name: 'coconut-mall-theme', display: 'Coconut Mall Theme', hour: 17, url: 'https://www.youtube.com/watch?v=QY7SxnKqMmE',
+  },
+  {
+    name: 'fireflies', display: 'Fireflies', hour: 18, url: 'https://www.youtube.com/watch?v=QBgl4rVz3Ks',
+  },
+  {
+    name: 'fireflies', display: 'Fireflies', hour: 19, url: 'https://www.youtube.com/watch?v=QBgl4rVz3Ks',
+  },
+  {
+    name: 'fireflies', display: 'Fireflies', hour: 20, url: 'https://www.youtube.com/watch?v=QBgl4rVz3Ks',
+  },
+  {
+    name: 'fireflies', display: 'Fireflies', hour: 21, url: 'https://www.youtube.com/watch?v=QBgl4rVz3Ks',
+  },
+  {
+    name: 'fireflies', display: 'Fireflies', hour: 22, url: 'https://www.youtube.com/watch?v=QBgl4rVz3Ks',
+  },
+  {
+    name: 'fireflies', display: 'Fireflies', hour: 23, url: 'https://www.youtube.com/watch?v=QBgl4rVz3Ks',
+  },
 ];
 
 const getSongByHour = (hour) => {
@@ -40,14 +92,13 @@ const getSong = (params) => {
 };
 
 const getSongsByHour = (params) => {
-  const validSongs = songs.filter((song) => song.hour === Number(params.hour));
+  const validSongs = songs.filter((song) => song.hour === Number(params.hour) % 24);
   return validSongs;
 };
 
 const addSong = (nameIn, displayIn, hourIn, videoIdIn) => {
   if (!(getSongsByHour({ hour: hourIn }).some((s) => {
     if (s.videoId) {
-      console.log(`${s.videoId} == ${videoIdIn}`);
       return s.videoId === videoIdIn;
     }
     return false;
@@ -61,6 +112,18 @@ const addSong = (nameIn, displayIn, hourIn, videoIdIn) => {
     return true;
   }
   return false;
+};
+
+const removeSong = (hour, name) => {
+  const numDeleted = songs.reduceRight((acc, item, index, object) => {
+    if (item.hour === Number(hour) && item.name === name) {
+      object.splice(index, 1);
+      console.log('deleted');
+      return acc + 1;
+    }
+    return acc;
+  }, 0);
+  return numDeleted > 0;
 };
 
 const getSongJSON = (params) => JSON.stringify(getSong(params));
@@ -136,5 +199,6 @@ const getSongsResponse = (request, response, params, acceptedTypes, httpMethod) 
 };
 
 module.exports.addSong = addSong;
+module.exports.removeSong = removeSong;
 module.exports.getSongResponse = getSongResponse;
 module.exports.getSongsResponse = getSongsResponse;

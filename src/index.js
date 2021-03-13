@@ -26,7 +26,6 @@ const handlePost = (request, response, parsedUrl) => {
   if (parsedUrl.pathname === '/addSong') {
     const body = [];
 
-    // https://nodejs.org/api/http.html
     request.on('error', (err) => {
       console.dir(err);
       response.statusCode = 400;
@@ -57,14 +56,35 @@ const handlePost = (request, response, parsedUrl) => {
         response.write('Duplicate upload');
       }
       response.end();
-      // const bodyString = Buffer.concat(body).toString();
-      // const bodyParams = query.parse(bodyString);
+    });
+  } else if (parsedUrl.pathname === '/removeSong') {
+    const body = [];
 
-      // console.dir(request);
-      // console.dir(Buffer.concat(body));
-      // fs.writeFileSync('./client/music/test.mp3', buff);
-      // console.dir(bodyString);
-      // console.dir(bodyParams);
+    request.on('error', (err) => {
+      console.dir(err);
+      response.statusCode = 400;
+      response.end();
+    });
+
+    request.on('data', (chunk) => {
+      body.push(chunk);
+    });
+
+    request.on('end', () => {
+      const bodyString = Buffer.concat(body).toString();
+      const bodyParams = query.parse(bodyString);
+
+      if (!bodyParams.songHour || !bodyParams.songName) {
+        response.statusCode = 400;
+        response.write('Missing a parameter');
+      } else if (jsonResponses.removeSong(bodyParams.songHour,
+        bodyParams.songName)) {
+        response.statusCode = 204;
+      } else {
+        response.statusCode = 200;
+        response.write('Song does not exist to delete');
+      }
+      response.end();
     });
   }
 };
