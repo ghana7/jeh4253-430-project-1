@@ -91,6 +91,7 @@ main ul {
 
 #playlist {
     border: 1px solid white;
+    background-color: rgba(255,255,255,0.1);
     border-radius: 5px;
     position: absolute;
     top: 25%;
@@ -106,10 +107,12 @@ main ul {
 #playlistSongs {
     border: 1px solid white;
     border-radius: 5px;
+    background-color: rgba(255,255,255,0.3);
     margin-left: 5px;
     margin-right: 5px;
     height: calc(100% - 3rem);
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 #playlistSongs p {
@@ -121,6 +124,7 @@ main ul {
     position: absolute;
     width: 15vh;
     height: 15vh;
+    z-index: -10;
 }
 
 h3 {
