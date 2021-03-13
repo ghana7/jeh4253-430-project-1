@@ -19,10 +19,10 @@ const getSongsByHour = (params) => {
   return validSongs;
 };
 
-const addSong = (nameIn, displayIn, hourIn, videoIdIn) => {
+const addSong = (nameIn, displayIn, hourIn, urlIn) => {
   if (!(getSongsByHour({ hour: hourIn }).some((s) => {
-    if (s.videoId) {
-      return s.videoId === videoIdIn;
+    if (s.url) {
+      return s.url === urlIn;
     }
     return false;
   }))) {
@@ -30,7 +30,7 @@ const addSong = (nameIn, displayIn, hourIn, videoIdIn) => {
       name: nameIn,
       display: displayIn,
       hour: Number(hourIn),
-      videoId: videoIdIn,
+      url: urlIn,
     });
     return true;
   }

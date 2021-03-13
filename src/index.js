@@ -48,7 +48,7 @@ const handlePost = (request, response, parsedUrl) => {
         response.statusCode = 400;
         response.write('Invalid URL');
       } else if (jsonResponses.addSong(clean, bodyParams.songName, bodyParams.songHour,
-        youtubeHandler.getVideoId(bodyParams.songUrl))) {
+        bodyParams.songUrl)) {
         response.statusCode = 201;
         youtubeHandler.downloadVideo(bodyParams.songUrl, clean);
       } else {

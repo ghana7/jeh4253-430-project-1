@@ -8,10 +8,8 @@ images.forEach((i) => {
 });
 console.log('finished loading images');
 const loadFile = (request, response, fileName, fileType) => {
-  const file = path.join(process.cwd(), fileName);
+  const file = path.resolve(__dirname, fileName);
 
-  console.log('FILE IS ------------------');
-  console.log(file);
   fs.stat(file, (err, stats) => {
     if (err) {
       if (err.code === 'ENOENT') {
